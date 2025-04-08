@@ -19,7 +19,8 @@
     "css-loader": "^6.7.3",
     "esbuild": "^0.15.7",
     "style-loader": "^3.3.1",
-    "vue-loader": "^17.0.0"
+    "vue-loader": "^17.0.0",
+    "webpack": "^5.75.0"
   },
   "private": true,
   "engines": {
