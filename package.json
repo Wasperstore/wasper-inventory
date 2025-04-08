@@ -7,7 +7,7 @@
     "dev": "yarn run webpack --config webpack.config.js --mode=development --watch"
   },
   "dependencies": {
-    "@frappe/charts": "^1.6.2",
+    "frappe-charts": "^1.6.2",
     "vue": "^3.2.45"
   },
   "devDependencies": {
