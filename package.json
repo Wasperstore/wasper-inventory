@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Inventory Management Solution",
   "scripts": {
-    "build": "frappe-bench build",
-    "watch": "frappe-bench watch"
+    "build": "yarn run webpack --config webpack.config.js --mode=production",
+    "dev": "yarn run webpack --config webpack.config.js --mode=development --watch"
   },
   "dependencies": {
     "frappe-charts": "^2.0.0",
@@ -12,9 +12,18 @@
     "vue": "^3.2.45"
   },
   "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@babel/preset-env": "^7.20.2",
     "@vue/compiler-sfc": "^3.2.45",
+    "babel-loader": "^9.1.2",
+    "css-loader": "^6.7.3",
+    "style-loader": "^3.3.1",
     "vue-loader": "^17.0.0",
-    "webpack": "^5.75.0"
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   },
-  "private": true
+  "private": true,
+  "engines": {
+    "node": ">=14.0.0"
+  }
 } 
