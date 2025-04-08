@@ -1,0 +1,8 @@
+{
+    "js/wasper_inventory.js": [
+        "public/js/wasper_inventory.js"
+    ],
+    "css/wasper_inventory.css": [
+        "public/css/wasper_inventory.css"
+    ]
+} 
