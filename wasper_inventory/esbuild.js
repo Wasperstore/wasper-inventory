@@ -9,16 +9,17 @@ const apps = apps_flag_index > -1 ? process.argv[apps_flag_index + 1].split(',')
 const production = process.argv.includes('--production');
 
 function get_public_path(app) {
-    return path.resolve(`./${app}/public`);
+    return path.resolve(__dirname, app, 'public');
 }
 
 function get_build_json_path(app) {
-    return path.resolve(`./${app}/public/build.json`);
+    return path.resolve(__dirname, app, 'public', 'build.json');
 }
 
 function get_build_map(app) {
     const build_json_path = get_build_json_path(app);
     if (!fs.existsSync(build_json_path)) {
+        console.error(`Build JSON not found for app: ${app}`);
         return null;
     }
     return require(build_json_path);
