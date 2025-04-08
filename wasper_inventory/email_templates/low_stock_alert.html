@@ -1,0 +1,31 @@
+<div>
+    <p>Dear {{ recipient_name }},</p>
+    
+    <p>The following items are running low on stock in {{ branch }}:</p>
+    
+    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+        <thead>
+            <tr style="background-color: #f5f5f5;">
+                <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Item Code</th>
+                <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Item Name</th>
+                <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Current Stock</th>
+                <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Reorder Level</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">{{ item.item_code }}</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">{{ item.item_name }}</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">{{ item.actual_qty }}</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">{{ item.reorder_level }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <p>Please take necessary action to replenish the stock.</p>
+    
+    <p>Best regards,<br>
+    Wasper Inventory System</p>
+</div> 

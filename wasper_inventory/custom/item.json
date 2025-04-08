@@ -1,0 +1,62 @@
+{
+    "custom_fields": [
+        {
+            "dt": "Item",
+            "fieldname": "min_selling_price",
+            "fieldtype": "Currency",
+            "label": "Minimum Selling Price",
+            "insert_after": "standard_rate"
+        },
+        {
+            "dt": "Item",
+            "fieldname": "max_selling_price",
+            "fieldtype": "Currency",
+            "label": "Maximum Selling Price",
+            "insert_after": "min_selling_price"
+        },
+        {
+            "dt": "Item",
+            "fieldname": "shelf_life",
+            "fieldtype": "Int",
+            "label": "Shelf Life (Days)",
+            "insert_after": "max_selling_price"
+        },
+        {
+            "dt": "Item",
+            "fieldname": "is_serialized",
+            "fieldtype": "Check",
+            "label": "Is Serialized",
+            "default": "0",
+            "insert_after": "shelf_life"
+        },
+        {
+            "dt": "Item",
+            "fieldname": "is_batch_item",
+            "fieldtype": "Check",
+            "label": "Is Batch Item",
+            "default": "0",
+            "insert_after": "is_serialized"
+        },
+        {
+            "dt": "Item",
+            "fieldname": "hsn_code",
+            "fieldtype": "Data",
+            "label": "HSN Code",
+            "insert_after": "is_batch_item"
+        },
+        {
+            "dt": "Item",
+            "fieldname": "gst_rate",
+            "fieldtype": "Percent",
+            "label": "GST Rate",
+            "insert_after": "hsn_code"
+        },
+        {
+            "dt": "Item",
+            "fieldname": "item_barcode",
+            "fieldtype": "Data",
+            "label": "Barcode",
+            "insert_after": "gst_rate"
+        }
+    ]
+} 

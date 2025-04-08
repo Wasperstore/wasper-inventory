@@ -1,0 +1,81 @@
+{% extends "templates/web.html" %}
+
+{% block title %}{{ _("POS") }}{% endblock %}
+
+{% block page_content %}
+<div class="pos-container">
+    <div class="pos-sidebar">
+        <div class="pos-search">
+            <input type="text" class="form-control" placeholder="{{ _('Search items...') }}" id="pos-search">
+        </div>
+        <div class="pos-items" id="pos-items">
+            {% for item in items %}
+            <div class="pos-item-card" data-item-code="{{ item.item_code }}">
+                <div class="d-flex align-items-center">
+                    {% if item.image %}
+                    <img src="{{ item.image }}" class="pos-item-image">
+                    {% endif %}
+                    <div class="pos-item-details">
+                        <div class="pos-item-name">{{ item.item_name }}</div>
+                        <div class="pos-item-price">{{ frappe.format(item.standard_rate, {fieldtype: "Currency"}) }}</div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="pos-main">
+        <div class="pos-cart">
+            <div class="pos-cart-header">
+                <h5>{{ _("Cart") }}</h5>
+            </div>
+            <div id="pos-cart-items"></div>
+            <div class="pos-total">
+                <div class="d-flex justify-content-between">
+                    <span>{{ _("Total") }}:</span>
+                    <span id="pos-total-amount">0.00</span>
+                </div>
+            </div>
+        </div>
+        <div class="pos-payment">
+            <h5>{{ _("Payment") }}</h5>
+            <div class="pos-payment-methods" id="pos-payment-methods">
+                {% for payment in payment_methods %}
+                <div class="pos-payment-method" data-mode="{{ payment.mode_of_payment }}">
+                    {{ payment.mode_of_payment }}
+                </div>
+                {% endfor %}
+            </div>
+            <button class="btn btn-primary btn-block mt-3" id="pos-pay">
+                {{ _("Pay") }}
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    frappe.ready(() => {
+        new wasper_inventory.pos.POS({
+            frm: {
+                doc: {
+                    items: [],
+                    payments: []
+                },
+                set_value: (field, value) => {
+                    if (field === "total") {
+                        $("#pos-total-amount").text(frappe.format(value, {fieldtype: "Currency"}));
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+{% block style %}
+<style>
+    {% include "wasper_inventory/public/css/pos.css" %}
+</style>
+{% endblock %} 

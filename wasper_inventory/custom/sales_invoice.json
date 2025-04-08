@@ -1,0 +1,62 @@
+{
+    "custom_fields": [
+        {
+            "dt": "Sales Invoice",
+            "fieldname": "payment_status",
+            "fieldtype": "Select",
+            "label": "Payment Status",
+            "options": "Pending\nPartially Paid\nPaid",
+            "default": "Pending",
+            "insert_after": "status"
+        },
+        {
+            "dt": "Sales Invoice",
+            "fieldname": "delivery_status",
+            "fieldtype": "Select",
+            "label": "Delivery Status",
+            "options": "Pending\nIn Progress\nDelivered",
+            "default": "Pending",
+            "insert_after": "payment_status"
+        },
+        {
+            "dt": "Sales Invoice",
+            "fieldname": "sales_person",
+            "fieldtype": "Link",
+            "label": "Sales Person",
+            "options": "User",
+            "insert_after": "delivery_status"
+        },
+        {
+            "dt": "Sales Invoice",
+            "fieldname": "customer_feedback",
+            "fieldtype": "Small Text",
+            "label": "Customer Feedback",
+            "insert_after": "sales_person"
+        },
+        {
+            "dt": "Sales Invoice",
+            "fieldname": "is_return",
+            "fieldtype": "Check",
+            "label": "Is Return",
+            "default": "0",
+            "insert_after": "customer_feedback"
+        },
+        {
+            "dt": "Sales Invoice",
+            "fieldname": "return_reason",
+            "fieldtype": "Select",
+            "label": "Return Reason",
+            "options": "Damaged\nWrong Item\nCustomer Request\nOther",
+            "depends_on": "is_return",
+            "insert_after": "is_return"
+        },
+        {
+            "dt": "Sales Invoice",
+            "fieldname": "return_remarks",
+            "fieldtype": "Small Text",
+            "label": "Return Remarks",
+            "depends_on": "is_return",
+            "insert_after": "return_reason"
+        }
+    ]
+} 

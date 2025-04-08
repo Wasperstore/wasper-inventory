@@ -1,0 +1,71 @@
+{
+    "custom_fields": [
+        {
+            "dt": "Purchase Invoice",
+            "fieldname": "payment_status",
+            "fieldtype": "Select",
+            "label": "Payment Status",
+            "options": "Pending\nPartially Paid\nPaid",
+            "default": "Pending",
+            "insert_after": "status"
+        },
+        {
+            "dt": "Purchase Invoice",
+            "fieldname": "receipt_status",
+            "fieldtype": "Select",
+            "label": "Receipt Status",
+            "options": "Pending\nIn Progress\nReceived",
+            "default": "Pending",
+            "insert_after": "payment_status"
+        },
+        {
+            "dt": "Purchase Invoice",
+            "fieldname": "purchase_manager",
+            "fieldtype": "Link",
+            "label": "Purchase Manager",
+            "options": "User",
+            "insert_after": "receipt_status"
+        },
+        {
+            "dt": "Purchase Invoice",
+            "fieldname": "quality_check_status",
+            "fieldtype": "Select",
+            "label": "Quality Check Status",
+            "options": "Pending\nIn Progress\nPassed\nFailed",
+            "default": "Pending",
+            "insert_after": "purchase_manager"
+        },
+        {
+            "dt": "Purchase Invoice",
+            "fieldname": "quality_check_remarks",
+            "fieldtype": "Small Text",
+            "label": "Quality Check Remarks",
+            "insert_after": "quality_check_status"
+        },
+        {
+            "dt": "Purchase Invoice",
+            "fieldname": "is_return",
+            "fieldtype": "Check",
+            "label": "Is Return",
+            "default": "0",
+            "insert_after": "quality_check_remarks"
+        },
+        {
+            "dt": "Purchase Invoice",
+            "fieldname": "return_reason",
+            "fieldtype": "Select",
+            "label": "Return Reason",
+            "options": "Damaged\nWrong Item\nQuality Issue\nOther",
+            "depends_on": "is_return",
+            "insert_after": "is_return"
+        },
+        {
+            "dt": "Purchase Invoice",
+            "fieldname": "return_remarks",
+            "fieldtype": "Small Text",
+            "label": "Return Remarks",
+            "depends_on": "is_return",
+            "insert_after": "return_reason"
+        }
+    ]
+} 

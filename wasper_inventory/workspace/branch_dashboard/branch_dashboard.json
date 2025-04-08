@@ -1,0 +1,75 @@
+{
+    "charts": [
+        {
+            "name": "Branch Sales Trend",
+            "chart_name": "Branch Sales Trend",
+            "chart_type": "Report",
+            "report_name": "Branch Sales Trend",
+            "filters_json": "{}",
+            "type": "line"
+        },
+        {
+            "name": "Branch Stock Value",
+            "chart_name": "Branch Stock Value",
+            "chart_type": "Report",
+            "report_name": "Branch Stock Value",
+            "filters_json": "{}",
+            "type": "bar"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "POS",
+            "type": "Page",
+            "link_to": "pos",
+            "icon": "octicon octicon-credit-card",
+            "color": "#5e64ff"
+        },
+        {
+            "name": "Stock Balance",
+            "type": "Report",
+            "link_to": "Branch Stock Balance",
+            "icon": "octicon octicon-database",
+            "color": "#2ecc71"
+        },
+        {
+            "name": "Sales Summary",
+            "type": "Report",
+            "link_to": "Branch Sales Summary",
+            "icon": "octicon octicon-graph",
+            "color": "#3498db"
+        }
+    ],
+    "cards": [
+        {
+            "name": "Today's Sales",
+            "type": "Report",
+            "report_name": "Today's Sales",
+            "filters_json": "{}"
+        },
+        {
+            "name": "Low Stock Items",
+            "type": "Report",
+            "report_name": "Low Stock Items",
+            "filters_json": "{}"
+        },
+        {
+            "name": "Recent Transactions",
+            "type": "Report",
+            "report_name": "Recent Transactions",
+            "filters_json": "{}"
+        }
+    ],
+    "creation": "2024-04-07 14:00:00.000000",
+    "disabled": 0,
+    "docstatus": 0,
+    "doctype": "Workspace",
+    "idx": 0,
+    "is_standard": "No",
+    "modified": "2024-04-07 14:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "Wasper Inventory",
+    "name": "Branch Dashboard",
+    "owner": "Administrator",
+    "title": "Branch Dashboard"
+} 

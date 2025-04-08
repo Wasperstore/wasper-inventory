@@ -1,0 +1,12 @@
+include README.md
+include LICENSE
+include requirements.txt
+include patches.txt
+include hooks.py
+include *.json
+include *.js
+include *.css
+include *.html
+include *.png
+include *.jpg
+include *.ico 

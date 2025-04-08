@@ -1,0 +1,56 @@
+{
+    "custom_fields": [
+        {
+            "dt": "Branch",
+            "fieldname": "branch_manager",
+            "fieldtype": "Link",
+            "label": "Branch Manager",
+            "options": "User",
+            "insert_after": "branch_name"
+        },
+        {
+            "dt": "Branch",
+            "fieldname": "contact_number",
+            "fieldtype": "Data",
+            "label": "Contact Number",
+            "insert_after": "branch_manager"
+        },
+        {
+            "dt": "Branch",
+            "fieldname": "email_id",
+            "fieldtype": "Data",
+            "label": "Email ID",
+            "insert_after": "contact_number"
+        },
+        {
+            "dt": "Branch",
+            "fieldname": "opening_hours",
+            "fieldtype": "Small Text",
+            "label": "Opening Hours",
+            "insert_after": "email_id"
+        },
+        {
+            "dt": "Branch",
+            "fieldname": "target_sales",
+            "fieldtype": "Currency",
+            "label": "Monthly Sales Target",
+            "insert_after": "opening_hours"
+        },
+        {
+            "dt": "Branch",
+            "fieldname": "branch_type",
+            "fieldtype": "Select",
+            "label": "Branch Type",
+            "options": "Retail\nWholesale\nWarehouse",
+            "insert_after": "target_sales"
+        },
+        {
+            "dt": "Branch",
+            "fieldname": "is_active",
+            "fieldtype": "Check",
+            "label": "Is Active",
+            "default": "1",
+            "insert_after": "branch_type"
+        }
+    ]
+} 

@@ -1,0 +1,27 @@
+<h2>Create a Company Account</h2>
+<form id="signup-form">
+  <input type="text" name="full_name" placeholder="Full Name" required /><br/>
+  <input type="email" name="email" placeholder="Email" required /><br/>
+  <input type="password" name="password" placeholder="Password" required /><br/>
+  <input type="text" name="company" placeholder="Company Name" required /><br/>
+  <button type="submit">Register</button>
+</form>
+
+<script>
+  document.getElementById("signup-form").onsubmit = function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    frappe.call({
+      method: "wasper_inventory.api.auth.create_pending_user",
+      args: {
+        full_name: formData.get("full_name"),
+        email: formData.get("email"),
+        password: formData.get("password"),
+        company: formData.get("company")
+      },
+      callback: function (r) {
+        alert(r.message);
+      }
+    });
+  };
+</script>

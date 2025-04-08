@@ -1,0 +1,6 @@
+# Patches for Wasper Inventory
+# Format: version: patch_file
+
+1.0.0: patches/v1_0_0_add_branch_fields.py
+1.0.1: patches/v1_0_1_add_custom_fields.py
+1.0.2: patches/v1_0_2_add_reports.py 

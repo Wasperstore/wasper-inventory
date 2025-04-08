@@ -1,0 +1,59 @@
+<div>
+    <p>Dear {{ recipient_name }},</p>
+    
+    <p>Here is the performance summary for {{ branch }} for the period {{ from_date }} to {{ to_date }}:</p>
+    
+    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+        <thead>
+            <tr style="background-color: #f5f5f5;">
+                <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Metric</th>
+                <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">Total Sales</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">{{ total_sales }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">Total Purchases</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">{{ total_purchases }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">Gross Profit</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">{{ gross_profit }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">Profit Margin</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">{{ profit_margin }}%</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">Total Transactions</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">{{ total_transactions }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h3 style="margin-top: 20px;">Top Selling Items</h3>
+    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+        <thead>
+            <tr style="background-color: #f5f5f5;">
+                <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Item</th>
+                <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Quantity</th>
+                <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in top_items %}
+            <tr>
+                <td style="padding: 10px; border: 1px solid #ddd;">{{ item.item_name }}</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">{{ item.qty }}</td>
+                <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">{{ item.amount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <p>Best regards,<br>
+    Wasper Inventory System</p>
+</div> 
