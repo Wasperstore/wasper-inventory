@@ -12,7 +12,7 @@ const isProduction = process.argv.includes('--production');
 
 // Function to get the public path for an app
 function get_public_path(app) {
-    return path.resolve(__dirname, app, 'public');
+    return path.resolve(__dirname, 'public');
 }
 
 // Function to get the build.json path for an app
@@ -62,6 +62,12 @@ async function build() {
                 if (!fs.existsSync(source)) {
                     console.error(`Source file not found: ${source}`);
                     continue;
+                }
+
+                // Ensure the output directory exists
+                const bundleDir = path.dirname(bundle);
+                if (!fs.existsSync(bundleDir)) {
+                    fs.mkdirSync(bundleDir, { recursive: true });
                 }
 
                 await esbuild.build({

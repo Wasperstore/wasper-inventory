@@ -1,10 +1,12 @@
 {
     "wasper_inventory": {
-        "js/wasper_inventory.js": [
-            "js/wasper_inventory.js"
+        "js/wasper_inventory.bundle.js": [
+            "js/wasper_inventory.js",
+            "js/pos.js"
         ],
-        "css/wasper_inventory.css": [
-            "css/wasper_inventory.css"
+        "css/wasper_inventory.bundle.css": [
+            "css/wasper_inventory.css",
+            "css/pos.css"
         ]
     }
 } 
