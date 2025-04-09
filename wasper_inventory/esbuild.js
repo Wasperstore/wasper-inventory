@@ -1,110 +1,92 @@
+const esbuild = require('esbuild');
 const path = require('path');
 const fs = require('fs');
 
 // Get the --apps flag value
-const apps_flag_index = process.argv.indexOf('--apps');
-const apps = apps_flag_index > -1 ? process.argv[apps_flag_index + 1].split(',') : [];
+const apps = process.argv.includes('--apps') 
+    ? process.argv[process.argv.indexOf('--apps') + 1].split(',')
+    : [];
 
-// Get the production flag
-const production = process.argv.includes('--production');
+// Get the --production flag
+const isProduction = process.argv.includes('--production');
 
+// Function to get the public path for an app
 function get_public_path(app) {
-    // First try the app directory itself
-    const direct_path = path.resolve(__dirname, 'public');
-    if (fs.existsSync(direct_path)) {
-        return direct_path;
-    }
-    // Fallback to looking in parent directory
-    return path.resolve(__dirname, '..', 'public');
+    return path.resolve(__dirname, app, 'public');
 }
 
+// Function to get the build.json path for an app
 function get_build_json_path(app) {
-    const public_path = get_public_path(app);
-    const build_json_path = path.resolve(public_path, 'build.json');
-    if (!fs.existsSync(build_json_path)) {
-        console.error(`Build JSON not found at: ${build_json_path}`);
-        return null;
-    }
-    return build_json_path;
+    return path.resolve(get_public_path(app), 'build.json');
 }
 
-function get_build_map(app) {
+// Function to read the build map from build.json
+function read_build_map(app) {
     const build_json_path = get_build_json_path(app);
-    if (!build_json_path) return null;
-    
-    try {
-        return require(build_json_path);
-    } catch (e) {
-        console.error(`Error reading build.json for app ${app}:`, e.message);
+    if (!fs.existsSync(build_json_path)) {
+        console.error(`build.json not found for app ${app} at ${build_json_path}`);
         return null;
     }
+    const build_map = JSON.parse(fs.readFileSync(build_json_path, 'utf8'));
+    return build_map[app] || null;
 }
 
-async function build() {
-    const esbuild = require('esbuild');
+// Function to get all files to build for an app
+function get_all_files_to_build(app) {
+    const build_map = read_build_map(app);
+    if (!build_map) return [];
     
+    const files = [];
+    for (const [bundle, sources] of Object.entries(build_map)) {
+        files.push(...sources.map(source => ({
+            source: path.resolve(get_public_path(app), source),
+            bundle: path.resolve(get_public_path(app), bundle)
+        })));
+    }
+    return files;
+}
+
+// Build function
+async function build() {
     for (const app of apps) {
-        console.log(`Building assets for app: ${app}`);
-        const build_map = get_build_map(app);
+        console.log(`Building assets for ${app}...`);
+        const files = get_all_files_to_build(app);
         
-        if (!build_map || !build_map[app]) {
-            console.error(`Invalid build map for app: ${app}`);
+        if (files.length === 0) {
+            console.error(`No files to build for ${app}`);
             continue;
         }
 
-        const public_path = get_public_path(app);
-        const app_build_map = build_map[app];
-
-        for (const [bundle, files] of Object.entries(app_build_map)) {
-            console.log(`Building bundle: ${bundle}`);
-            
-            // Ensure the dist directory exists
-            const dist_dir = path.resolve(public_path, 'dist');
-            if (!fs.existsSync(dist_dir)) {
-                fs.mkdirSync(dist_dir, { recursive: true });
-            }
-
-            const outfile = path.resolve(dist_dir, bundle);
-            const entryPoints = files.map(file => {
-                // Remove 'public/' prefix if it exists
-                const clean_file = file.replace(/^public\//, '');
-                const entry_path = path.resolve(public_path, clean_file);
-                
-                if (!fs.existsSync(entry_path)) {
-                    console.error(`Entry point not found: ${entry_path}`);
-                    return null;
-                }
-                return entry_path;
-            }).filter(Boolean);
-
-            if (entryPoints.length === 0) {
-                console.error(`No valid entry points found for bundle: ${bundle}`);
-                continue;
-            }
-
+        for (const { source, bundle } of files) {
             try {
+                if (!fs.existsSync(source)) {
+                    console.error(`Source file not found: ${source}`);
+                    continue;
+                }
+
                 await esbuild.build({
-                    entryPoints,
+                    entryPoints: [source],
                     bundle: true,
-                    minify: production,
-                    sourcemap: !production,
+                    outfile: bundle,
+                    minify: isProduction,
+                    sourcemap: !isProduction,
                     target: ['es2017'],
-                    outfile,
                     format: 'iife',
-                    loader: {
-                        '.js': 'jsx',
-                        '.css': 'css',
-                        '.vue': 'js'
-                    },
-                    logLevel: 'info'
+                    platform: 'browser',
+                    define: {
+                        'process.env.NODE_ENV': isProduction ? '"production"' : '"development"'
+                    }
                 });
-                console.log(`Successfully built: ${bundle}`);
-            } catch (e) {
-                console.error(`Failed to build ${bundle}:`, e.message);
-                process.exit(1);
+                console.log(`Built ${bundle}`);
+            } catch (error) {
+                console.error(`Error building ${bundle}:`, error);
             }
         }
     }
 }
 
-build();
+// Run the build
+build().catch(error => {
+    console.error('Build failed:', error);
+    process.exit(1);
+});
